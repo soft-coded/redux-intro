@@ -3,24 +3,27 @@ const { createStore } = require("redux");
 // npm install redux
 const BUY_CAKE = "BUY_CAKE";
 const BUY_MOBILE = "BUY_MOBILE";
-//Action creatin
+
+//Action creation
 function buyCake() {
 	return {
-		type: "BUY_CAKE",
+		type: BUY_CAKE,
 		message: "Cake Action......."
 	};
 }
 function buyMobile() {
 	return {
-		type: "BUY_MOBILE",
+		type: BUY_MOBILE,
 		message: "Cake Action......."
 	};
 }
+
 // initialState of the Object
 const initialCakeState = {
 	numberOfCakes: 10,
 	numberOfMobiles: 20
 };
+
 //Reducer
 const reducer = (state = initialCakeState, action) => {
 	switch (action.type) {
@@ -38,6 +41,7 @@ const reducer = (state = initialCakeState, action) => {
 			return state;
 	}
 };
+
 //Store
 const store = createStore(reducer);
 console.log("Initial State", store.getState());
