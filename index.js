@@ -43,21 +43,21 @@ function payTax(amount) {
 // Actions to receive money
 function deposit(amount) {
 	return {
-		type: "CREDIT",
+		type: CREDIT,
 		amount,
 		message: "deposited"
 	};
 }
 function receiveMoneyOnline(amount) {
 	return {
-		type: "CREDIT",
+		type: CREDIT,
 		amount,
 		message: "received money from someone"
 	};
 }
 function salaryCredit(amount) {
 	return {
-		type: "CREDIT",
+		type: CREDIT,
 		amount,
 		message: "received your salary"
 	};
