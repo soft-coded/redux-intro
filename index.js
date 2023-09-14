@@ -1,65 +1,115 @@
 const redux = require("redux");
-const { createStore } = require("redux");
-const combineReducer = redux.combineReducers;
-// Single Action
-// npm install redux
-const BUY_CAKE = "BUY_CAKE";
-const BUY_MOBILE = "BUY_MOBILE";
-//Action creatin
-function buyCake() {
+const { createStore } = redux;
+// Action objects
+const CREDIT = "CREDIT";
+const DEBIT = "DEBIT";
+// Action creations
+// Actions to debit money
+function withdraw(amount) {
 	return {
-		type: "BUY_CAKE",
-		message: "Cake Action......."
+		type: "DEBIT",
+		amount,
+		message: "withdrew"
 	};
 }
-function buyMobile() {
+function mobileRecharge(amount) {
 	return {
-		type: "BUY_MOBILE",
-		message: "Cake Action......."
+		type: "DEBIT",
+		amount,
+		message: "Mobile Recharge"
 	};
 }
-// initialState of the Object
-const initialCakeState = {
-	numberOfCakes: 10
+function payElectricityBill(amount) {
+	return {
+		type: "DEBIT",
+		amount,
+		message: "Electricity bills"
+	};
+}
+function sendMoneyOnline(amount) {
+	return {
+		type: "DEBIT",
+		amount,
+		message: "someone online"
+	};
+}
+function payTax(amount) {
+	return {
+		type: "DEBIT",
+		amount,
+		message: "Tax"
+	};
+}
+// Actions to receive money
+function deposit(amount) {
+	return {
+		type: "CREDIT",
+		amount,
+		message: "deposited"
+	};
+}
+function receiveMoneyOnline(amount) {
+	return {
+		type: "CREDIT",
+		amount,
+		message: "received money from someone"
+	};
+}
+function salaryCredit(amount) {
+	return {
+		type: "CREDIT",
+		amount,
+		message: "received your salary"
+	};
+}
+// Initial State of the object
+const initialBalanceState = {
+	balance: 100
 };
-initialMobileState = {
-	numberOfMobiles: 20
-};
-//Reducer1
-const cakeReducer = (state = initialCakeState, action) => {
+// Reducer
+const reducer = (state = initialBalanceState, action) => {
 	switch (action.type) {
-		case BUY_CAKE:
+		case CREDIT:
 			return {
-				...state,
-				numberOfCakes: state.numberOfCakes - 1
+				balance: state.balance + action.amount,
+				reason:
+					"You " +
+					action.message +
+					" " +
+					action.amount +
+					" rupees to your account."
 			};
+		case DEBIT:
+			if (action.message == "withdrew")
+				return {
+					balance: state.balance - action.amount,
+					reason:
+						"You " +
+						action.message +
+						" " +
+						action.amount +
+						" rupees from your account"
+				};
+			else
+				return {
+					balance: state.balance - action.amount,
+					reason: "You paid " + action.amount + " rupees for " + action.message
+				};
 		default:
 			return state;
 	}
 };
-//Reducer2
-const mobileReducer = (state = initialMobileState, action) => {
-	switch (action.type) {
-		case BUY_MOBILE:
-			return {
-				...state,
-				numberOfMobiles: state.numberOfMobiles - 1
-			};
-		default:
-			return state;
-	}
-};
-//Store
-const rootReducer = combineReducer({
-	cake: cakeReducer,
-	mobile: mobileReducer
-});
-const store = createStore(rootReducer);
-console.log("Initial State", store.getState());
-store.subscribe(() => console.log("Update state", store.getState()));
-store.dispatch(buyCake());
-store.dispatch(buyCake());
-store.dispatch(buyCake());
-store.dispatch(buyMobile());
-store.dispatch(buyMobile());
-store.dispatch(buyMobile());
+// Creating a store
+const store = createStore(reducer);
+console.log("Initial State: ", store.getState());
+store.subscribe(() => console.log("Update State: ", store.getState()));
+store.dispatch(deposit(1000));
+store.dispatch(deposit(200));
+store.dispatch(withdraw(100));
+store.dispatch(withdraw(50));
+store.dispatch(receiveMoneyOnline(500));
+store.dispatch(mobileRecharge(599));
+store.dispatch(salaryCredit(75000));
+store.dispatch(sendMoneyOnline(50000));
+store.dispatch(payElectricityBill(478.5));
+store.dispatch(payTax(5000));
