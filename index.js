@@ -7,35 +7,35 @@ const DEBIT = "DEBIT";
 // Actions to debit money
 function withdraw(amount) {
 	return {
-		type: "DEBIT",
+		type: DEBIT,
 		amount,
 		message: "withdrew"
 	};
 }
 function mobileRecharge(amount) {
 	return {
-		type: "DEBIT",
+		type: DEBIT,
 		amount,
 		message: "Mobile Recharge"
 	};
 }
 function payElectricityBill(amount) {
 	return {
-		type: "DEBIT",
+		type: DEBIT,
 		amount,
 		message: "Electricity bills"
 	};
 }
 function sendMoneyOnline(amount) {
 	return {
-		type: "DEBIT",
+		type: DEBIT,
 		amount,
 		message: "someone online"
 	};
 }
 function payTax(amount) {
 	return {
-		type: "DEBIT",
+		type: DEBIT,
 		amount,
 		message: "Tax"
 	};
